@@ -1,0 +1,46 @@
+<head>
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+    {% load static %}
+    <img src="{% static 'notes/musical_notes.png' %}" alt="Musical Notes" class="center">
+
+    <p style="text-align:center">Post your own Note!</p>
+    <form action="{% url 'notes:post' %}" method="post" style="text-align:center" maxlength="200" size=50>
+        {% csrf_token %}
+        <textarea rows="4" cols="50" name="note" maxlength="200"></textarea>
+        <p></p>
+        <input type="submit" value="Post" style="text-align:center">
+    </form>
+
+    {% if notes %}
+    <table style="border-collapse: collapse; margin-left: auto; margin-right: auto;">
+        <tbody>
+            {% for note in notes %}
+            <tr>
+                <td style="border-bottom: thin solid; border-top: thin solid; width: 100%;">
+                    <p></p>
+                    <p>{{ note.note }}</p>
+                    <p><span style="font-size: 0.8em;">Likes: <button
+                                onclick="location.href='{% url 'notes:like' note.id %}'" type="button">
+                                {{note.likes}}</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{note.pub_date}}</span></p>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align:center">No notes are available.</p>
+    {% endif %}
+
+</body>

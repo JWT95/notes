@@ -1,0 +1,5 @@
+# Never check in the database
+db.sqlite3
+
+# Don't check in pyc files
+*.pyc
