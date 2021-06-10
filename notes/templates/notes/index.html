@@ -5,46 +5,54 @@
 
     <title>Notes</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 
 <body class="text-center">
-    {% load static %}
-    <img src="{% static 'musical_notes.png' %}" alt="Musical Notes">
+    <div class="text-center">
+        {% load static %}
+        <img src="{% static 'musical_notes.png' %}" alt="Musical Notes">
+    </div>
     
+    
+    <div class="container-fluid">
+        <p class="text-center">Post your own Note!</p>
+        <form action="{% url 'notes:post' %}" method="post" maxlength="200" size=50>
+            {% csrf_token %}
+            <textarea rows="4" cols="50" name="note" maxlength="200"></textarea>
+            <p></p>
+            <input type="submit" value="Post">
+        </form>
 
-    <p class="text-center">Post your own Note!</p>
-    <form action="{% url 'notes:post' %}" method="post" maxlength="200" size=50>
-        {% csrf_token %}
-        <textarea rows="4" cols="50" name="note" maxlength="200"></textarea>
-        <p></p>
-        <input type="submit" value="Post">
-    </form>
+        {% if notes %}
+            <table style="border-collapse: collapse; margin-left: auto; margin-right: auto;">
+                <tbdy>
+                    {% for note in notes %}
+                    <tr>
+                        <td style="border-bottom: thin solid; border-top: thin solid; width: 100%;" class="text-center">
+                            <p></p>
+                            <p>{{ note.note }}</p>
+                            <p><span style="font-size: 0.8em;">Likes: <button
+                                        onclick="location.href='{% url 'notes:like' note.id %}'" type="button">
+                                        {{note.likes}}</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{note.pub_date}}</span></p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No notes are available.</p>
+        {% endif %}
 
-    {% if notes %}
-    <table style="border-collapse: collapse; margin-left: auto; margin-right: auto;">
-        <tbody>
-            {% for note in notes %}
-            <tr>
-                <td style="border-bottom: thin solid; border-top: thin solid; width: 100%;" class="text-center">
-                    <p></p>
-                    <p>{{ note.note }}</p>
-                    <p><span style="font-size: 0.8em;">Likes: <button
-                                onclick="location.href='{% url 'notes:like' note.id %}'" type="button">
-                                {{note.likes}}</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            {{note.pub_date}}</span></p>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p>No notes are available.</p>
-    {% endif %}
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    
 
 </body>
