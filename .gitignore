@@ -3,3 +3,6 @@ db.sqlite3
 
 # Don't check in pyc files
 *.pyc
+
+# Ignore the .azure directory
+.azure
