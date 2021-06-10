@@ -1,24 +1,26 @@
 <head>
-    <style>
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 30%;
-        }
-    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
 </head>
 
-<body>
+<body class="text-center">
     {% load static %}
-    <img src="{% static 'notes/musical_notes.png' %}" alt="Musical Notes" class="center">
+    <img src="{% static 'notes/musical_notes.png' %}" alt="Musical Notes">
+    
 
-    <p style="text-align:center">Post your own Note!</p>
-    <form action="{% url 'notes:post' %}" method="post" style="text-align:center" maxlength="200" size=50>
+    <p class="text-center">Post your own Note!</p>
+    <form action="{% url 'notes:post' %}" method="post" maxlength="200" size=50>
         {% csrf_token %}
         <textarea rows="4" cols="50" name="note" maxlength="200"></textarea>
         <p></p>
-        <input type="submit" value="Post" style="text-align:center">
+        <input type="submit" value="Post">
     </form>
 
     {% if notes %}
@@ -26,7 +28,7 @@
         <tbody>
             {% for note in notes %}
             <tr>
-                <td style="border-bottom: thin solid; border-top: thin solid; width: 100%;">
+                <td style="border-bottom: thin solid; border-top: thin solid; width: 100%;" class="text-center">
                     <p></p>
                     <p>{{ note.note }}</p>
                     <p><span style="font-size: 0.8em;">Likes: <button
@@ -40,7 +42,9 @@
         </tbody>
     </table>
     {% else %}
-    <p style="text-align:center">No notes are available.</p>
+    <p>No notes are available.</p>
     {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 </body>
