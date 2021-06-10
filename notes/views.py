@@ -15,6 +15,7 @@ def index(request):
 
 def like(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
+    note.full_clean()
     note.likes += 1
     note.save()
     # Always return an HttpResponseRedirect after successfully dealing
