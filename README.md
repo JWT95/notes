@@ -28,3 +28,10 @@ To set Prometheus and Grafana up you need to do the following:
 - Install Prometheus and Grafana onto the VM
 - Run Prometheus behind proxy by following: https://www.robustperception.io/external-urls-and-path-prefixes
 - Run Grafana behind proxy by following: https://grafana.com/tutorials/run-grafana-behind-a-proxy/
+
+## Run an Azure App Services
+Follow [this guide](https://docs.microsoft.com/en-gb/azure/app-service/quickstart-python?tabs=bash&pivots=python-framework-django) 
+to install / update the code as a webapp.
+
+Note that Azure does not run migrate the db when it runs the app so you either need to migrate locally
+and upload the sqllite database or run `python manage.py migrate` in the webssh portal.
