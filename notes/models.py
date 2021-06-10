@@ -8,7 +8,7 @@ from django_prometheus.models import ExportModelOperationsMixin
 
 class Note(ExportModelOperationsMixin('note'), models.Model):
     note = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published', default=timezone.now())
+    pub_date = models.DateTimeField('date published', default=timezone.now)
     likes = models.IntegerField(default=0)
 
     def __str__(self):
